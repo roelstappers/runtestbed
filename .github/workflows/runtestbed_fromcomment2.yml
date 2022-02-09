@@ -15,7 +15,8 @@ jobs:
       - name: executing remote ssh commands using password      
         run: |
          mkdir $HOME/.ssh/
-         cp .github/workflows/sshconfig $HOME/.ssh/
+         cp $GITHUB_WORKSPACE/.github/workflows/sshconfig $HOME/.ssh/config
+         cat $HOME/.ssh/config
          export USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
          export HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2` 
          cat .github/workflows/expect.sh | envsubst > expect.sh 
