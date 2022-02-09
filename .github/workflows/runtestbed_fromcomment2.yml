@@ -20,4 +20,14 @@ jobs:
          export USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
          export HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2` 
          cat .github/workflows/expect.sh | envsubst > expect.sh 
-         expect expect.sh
+         expect expect.sh         
+      - uses: actions/github-script@v5
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 testbed started!'
+            })
