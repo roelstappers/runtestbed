@@ -11,14 +11,14 @@ jobs:
     steps:
       - name: Get USER and HID
         run: |
-          github.event.inputs.USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
-          github.event.inputs.HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2`       
+          USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
+          HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2`       
       - name: Create config file # seems necessary
         run: |       
           mkdir $HOME/.ssh 
           echo "Host=ec" > $HOME/.ssh/config
           echo "HostName=ecaccess.ecmwf.int" >> $HOME/.ssh/config
-          echo "user=${{ github.event.inputs.USER }}" >> $HOME/.ssh/config
+          echo "user=${USER}" >> $HOME/.ssh/config
           echo "KexAlgorithms=+diffie-hellman-group1-sha1" >> $HOME/.ssh/config
           echo "HostkeyAlgorithms=+ssh-dss" >> $HOME/.ssh/config
           echo "Ciphers=+aes128-cbc" >> $HOME/.ssh/config
@@ -31,7 +31,7 @@ jobs:
           echo "#!/usr/bin/expect -f" > expect.sh
           echo "spawn ssh ec" >> expect.sh
           echo "expect \"*password: \"" >> expect.sh
-          echo "send \"${{ github.event.inputs.HID }}\r\"" >> expect.sh
+          echo "send \"${HID}\r\"" >> expect.sh
           echo "expect \"*: \" {send \"\r\"}" >> expect.sh
           echo "expect \"*\$ \" {send \"touch blabla2\r\"}" >> expect.sh
           echo "expect \"*\$ \" {send \"exit\r\"}" >> expect.sh
