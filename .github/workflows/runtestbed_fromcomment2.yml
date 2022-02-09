@@ -1,0 +1,21 @@
+name: run_fromcomment2
+
+on:
+  issue_comment:                                     
+    types: [created]
+
+jobs:
+  job01:
+    if: starswith(github.event.comment.body, '@testbed')   # check the comment if it contains the keywords
+    runs-on: [ubuntu-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install expect
+        run: sudo apt install expect
+      - name: executing remote ssh commands using password      
+        run: |
+         cp .github/workflows/sshconfig $HOME/.ssh/
+         export USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
+         export HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2` 
+         cat .github/workflows/expect.sh | envsubst > expect.sh 
+         ./expect.sh
