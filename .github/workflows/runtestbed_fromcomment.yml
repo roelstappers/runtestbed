@@ -14,7 +14,8 @@ jobs:
          github.event.inputs.USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
          github.event.inputs.HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2`       
      - name: Create config file # seems necessary
-       run: |          mkdir $HOME/.ssh 
+       run: |       
+         mkdir $HOME/.ssh 
          echo "Host=ec" > $HOME/.ssh/config
          echo "HostName=ecaccess.ecmwf.int" >> $HOME/.ssh/config
          echo "user=${{ github.event.inputs.USER }}" >> $HOME/.ssh/config
