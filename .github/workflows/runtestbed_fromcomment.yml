@@ -26,8 +26,8 @@ jobs:
           cat $HOME/.ssh/config
       - name: Install expect
         run: sudo apt install expect
-     - name: Create expect file
-       run: | 
+      - name: Create expect file
+        run: | 
           echo "#!/usr/bin/expect -f" > expect.sh
           echo "spawn ssh ec" >> expect.sh
           echo "expect \"*password: \"" >> expect.sh
@@ -37,5 +37,5 @@ jobs:
           echo "expect \"*\$ \" {send \"exit\r\"}" >> expect.sh
           chmod 755 expect.sh 
           cat expect.sh
-    - name: executing remote ssh commands using password
-      run: ./expect.sh
+      - name: executing remote ssh commands using password
+        run: ./expect.sh
