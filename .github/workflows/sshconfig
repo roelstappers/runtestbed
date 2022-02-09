@@ -1,0 +1,6 @@
+Host=ec
+HostName=ecaccess.ecmwf.int
+KexAlgorithms=+diffie-hellman-group1-sha1
+HostkeyAlgorithms=+ssh-dss
+Ciphers=+aes128-cbc
+StrictHostKeyChecking=no
