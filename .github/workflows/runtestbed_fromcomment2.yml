@@ -16,11 +16,11 @@ jobs:
         run: |
          mkdir $HOME/.ssh/
          cp $GITHUB_WORKSPACE/.github/workflows/sshconfig $HOME/.ssh/config
-         cat $HOME/.ssh/config
+         cp $GITHUB_WORKSPACE/.github/workflows/runtestbed.exp ./         
          export USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
          export HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2` 
-         cat .github/workflows/expect.sh | envsubst > expect.sh 
-         expect expect.sh         
+         chmod 755 runtestbed.exp
+         ./runtestbed.exp $USER $HID          
       - uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
