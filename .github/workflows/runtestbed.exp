@@ -1,5 +1,17 @@
 #!/usr/bin/expect -f
 
+# usage:  
+#
+#    ./test.exp USER HID 
+#
+# Where USER is your ECMWF username
+#       HID is the hid token 
+
+
+set USER [lindex $argv 0]
+set HID [lindex $argv 1]
+
+
 spawn ssh ec -l $USER
 expect "*password: " {send "$HID\r"}
 expect "*: " {send "\r"}
