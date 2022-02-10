@@ -14,6 +14,6 @@ set HID [lindex $argv 1]
 
 spawn ssh ec -l $USER
 expect "*password: " {send "$HID\r"}
-expect -ex "Select hostname (ecgate, cca, ccb) [ecgate]: " {send "\r"}
+expect "Select hostname (ecgate, cca, ccb) \\\[ecgate\\\]: " {send "\r"}
 expect "*$ " {send "touch blabla3\r"}
 expect "*$ " {send "exit\r"}
