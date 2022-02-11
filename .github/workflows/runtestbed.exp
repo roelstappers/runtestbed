@@ -15,5 +15,7 @@ set HID [lindex $argv 1]
 spawn ssh ec -l $USER
 expect "*password: " {send "$HID\r"}
 expect "Select hostname (ecgate, cca, ccb) \\\[ecgate\\\]: " {send "\r"}
-expect "*$ " {send "touch blabla3\r"}
+expect "*$ " {send "mkdir \$SCRATCH/git && cd \$SCRATCH/git\r"}
+expect "*$ " {send "pwd\r"}
+expect "*$ " {send "echo git clone --bare https/github.com/$GITHUB_REPOSITORY\r"}
 expect "*$ " {send "exit\r"}
