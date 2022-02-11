@@ -8,6 +8,8 @@
 #       HID is the hid token 
 #       GITURL is the url of the git repository
 
+# This will login to ecgate and put a bare clone of the git repository in $SCRATCH/git/
+
 
 set USER [lindex $argv 0]
 set HID [lindex $argv 1]
@@ -17,7 +19,7 @@ set GITURL [lindex $argv 2]
 spawn ssh ec -l $USER
 expect "*password: " {send "$HID\r"}
 expect "Select hostname (ecgate, cca, ccb) \\\[ecgate\\\]: " {send "\r"}
-expect "*$ " {send "mkdir -p \$SCRATCH/git && cd \$SCRATCH/git\r"}
-expect "*$ " {send "pwd\r"}
-expect "*$ " {send "echo git clone --bare $GITURL\r"}
-expect "*$ " {send "exit\r"}
+expect "*\$ " {send "mkdir -p \$SCRATCH/git && cd \$SCRATCH/git\r"}
+expect "*\$ " {send "pwd\r"}
+expect "*\$ " {send "git clone --bare $GITURL\r"}
+expect "*\$ " {send "exit\r"}
