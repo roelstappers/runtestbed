@@ -20,7 +20,7 @@ jobs:
          export USER=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f1`
          export HID=`echo "${{ github.event.comment.body }}"  | cut -d' ' -f2 | cut -d':' -f2` 
          chmod 755 runtestbed.exp
-         ./runtestbed.exp $USER $HID          
+         ./runtestbed.exp $USER $HID    ${{ github.repositoryUrl }}    
       - uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
