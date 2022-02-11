@@ -6,6 +6,7 @@
 #
 # Where USER is your ECMWF username
 #       HID is the hid token 
+#       GITURL is the url of the git repository
 
 
 set USER [lindex $argv 0]
