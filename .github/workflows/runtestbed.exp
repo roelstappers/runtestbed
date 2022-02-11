@@ -10,7 +10,7 @@
 
 set USER [lindex $argv 0]
 set HID [lindex $argv 1]
-set GITURL [lindex $argv 1]
+set GITURL [lindex $argv 2]
 
 
 spawn ssh ec -l $USER
