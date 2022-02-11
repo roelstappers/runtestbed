@@ -2,7 +2,7 @@
 
 # usage:  
 #
-#    ./runtestbed.exp USER HID 
+#    ./runtestbed.exp USER HID GITURL
 #
 # Where USER is your ECMWF username
 #       HID is the hid token 
@@ -10,12 +10,13 @@
 
 set USER [lindex $argv 0]
 set HID [lindex $argv 1]
+set GITURL [lindex $argv 1]
 
 
 spawn ssh ec -l $USER
 expect "*password: " {send "$HID\r"}
 expect "Select hostname (ecgate, cca, ccb) \\\[ecgate\\\]: " {send "\r"}
-expect "*$ " {send "mkdir \$SCRATCH/git && cd \$SCRATCH/git\r"}
+expect "*$ " {send "mkdir -p \$SCRATCH/git && cd \$SCRATCH/git\r"}
 expect "*$ " {send "pwd\r"}
-expect "*$ " {send "echo git clone --bare https/github.com/$GITHUB_REPOSITORY\r"}
+expect "*$ " {send "echo git clone --bare $GITURL\r"}
 expect "*$ " {send "exit\r"}
