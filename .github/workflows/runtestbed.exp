@@ -10,16 +10,27 @@
 
 # This will login to ecgate and put a bare clone of the git repository in $SCRATCH/git/
 
+# set timeout 20 
 
 set USER [lindex $argv 0]
 set HID [lindex $argv 1]
 set GITURL [lindex $argv 2]
 
+# Set PS1 as it might differ for different users
+# set ::env(PS1) "sh$"
 
 spawn ssh ec -l $USER
-expect "*password: " {send "$HID\r"}
-expect "Select hostname (ecgate, cca, ccb) \\\[ecgate\\\]: " {send "\r"}
-expect "*\$ " {send "mkdir -p \$SCRATCH/git && cd \$SCRATCH/git\r"}
-expect "*\$ " {send "pwd\r"}
-expect "*\$ " {send "git clone --bare $GITURL\r"}
-expect "*\$ " {send "exit\r"}
+expect "password: " 
+send --  "$HID\r"
+expect "Select hostname (ecgate, cca, ccb) \\\[ecgate\\\]: "
+send -- "\r"
+expect "\$ "
+send -- "mkdir -p \$SCRATCH/git && cd \$SCRATCH/git\r"
+expect "\$ "
+send --"pwd\r"
+expect "\$ "
+send -- "git clone --bare $GITURL\r"
+expect "\$ " 
+send -- "exit\r"
+
+expect eof
