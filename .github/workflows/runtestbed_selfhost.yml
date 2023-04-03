@@ -1,0 +1,14 @@
+name: run_fromcomment
+
+on:
+  issue_comment:                                     
+    types: [created]
+
+jobs:
+  job01:
+    if: contains(github.event.comment.body, 'runtestbed_self')   # check the comment if it contains the keywords
+    runs-on: [self-hosted]
+    steps:
+      - name: Create config file 
+        run: |      
+          echo $HOSTNAME          
