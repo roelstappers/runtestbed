@@ -12,5 +12,5 @@ jobs:
       - name: Create config file 
         run: |      
           echo $HOSTNAME
-          echo Your are creating ${{ github.event }}
+          echo Your are creating `jq ${{ github.event }}`
           echo $GITHUB_REF
