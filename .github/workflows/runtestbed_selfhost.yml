@@ -11,4 +11,5 @@ jobs:
     steps:
       - name: Create config file 
         run: |      
-          echo $HOSTNAME          
+          echo $HOSTNAME
+          echo Your are creating ${{github.event.pull_request.base.ref}}
