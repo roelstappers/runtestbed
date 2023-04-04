@@ -12,4 +12,4 @@ jobs:
       - name: Create config file 
         run: |      
           echo $HOSTNAME
-          echo Your are creating ${{github.event.pull_request.base.ref}}
+          echo Your are creating ${{ github.event.pull_request.comments_url }}
